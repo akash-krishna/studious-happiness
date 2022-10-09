@@ -1,4 +1,3 @@
-import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
@@ -20,8 +19,7 @@ public class GetAllUsersTests {
                     .log().body()
                     .statusCode(200)
                     .body("data",Matchers.hasSize(10))
-                    .body("data",Matchers.hasItem(Matchers.hasEntry("gender","male")))
-        ;
+                    .body("data",Matchers.hasItem(Matchers.hasEntry("gender","male")));
 
     }
 
