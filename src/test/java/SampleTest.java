@@ -1,4 +1,6 @@
 import io.restassured.http.ContentType;
+import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -15,10 +17,14 @@ public class SampleTest {
         //can add mandatory header
         given()
                 .when()
-                .get("https://gorest.co.in/public/v1/users")
+                    .get("https://gorest.co.in/public/v1/users")
                 .then()
-                .statusCode(200)
-                .log().body();
+                    .log().body()
+                    .statusCode(200)
+                    .body("data",Matchers.hasSize(10))
+                    .body("data",Matchers.hasItem(Matchers.hasEntry("gender","male")))
+        ;
+
     }
 
     @Test(groups = "api",description = "Should create user")
@@ -29,16 +35,19 @@ public class SampleTest {
                 .header("Authorization",
                         "Bearer 04de410736692f07f5ffbcc330b725228f3c485a2d454085236449b1ec947c1a")
                 .body("{\n" +
-                        "    \"name\": \"Tenali Ramakrishna2\",\n" +
+                        "    \"name\": \"Tenali Ramakrishna3\",\n" +
                         "    \"gender\": \"male\",\n" +
-                        "    \"email\": \"tenali.ramakrishna@15124.com\",\n" +
+                        "    \"email\": \"tenali.ramakrishna@15126.com\",\n" +
                         "    \"status\": \"active\"\n" +
                         "}")
                 .when()
                     .post("https://gorest.co.in/public/v2/users")
                 .then()
                     .log().body()
-                    .statusCode(201);
+                    .statusCode(201)
+                .body("id", Matchers.notNullValue())
+                .body("email",Matchers.equalTo("tenali.ramakrishna@15126.com"))
+                .body("name",Matchers.equalTo("Tenali Ramakrishna3"));
 
 
     }
