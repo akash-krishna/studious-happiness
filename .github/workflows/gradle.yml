@@ -32,9 +32,5 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: build
-        
-    -name: Give access to gradle
-      run: chmod +x ./gradlew
-      
-    -name: Build with Gradle
-      run: ./gradlew clean build runApiTests
+    - name: Build with Gradle
+      run: ./gradlew build runApiTests
