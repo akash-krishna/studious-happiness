@@ -21,6 +21,7 @@ public class SampleTest {
                 .log().body();
     }
 
+    @Test(groups = "api",description = "Should create user")
     public void shouldCreateUser(){
         given()
                 .accept(ContentType.JSON)
