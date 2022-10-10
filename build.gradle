@@ -11,19 +11,20 @@ repositories {
 
 dependencies {
     testImplementation group: 'org.testng', name: 'testng', version: '7.6.1'
+
     // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
     testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.2.0'
 
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.0-rc1'
+
 }
 task runApiTests(type: Test) {
-//    outputs.upToDateWhen { false }
     useTestNG {
         parallel = "methods"
-//        threadCount Integer.parseInt(System.getProperty("sessions", "1"))
         includeGroups System.getProperty("tags", "api")
         testLogging.showStandardStreams = true
         useDefaultListeners true
-//        outputDirectory = file("$buildDir/" + System.getProperty('tags', 'NONE'))
     }
 }
 //test {
