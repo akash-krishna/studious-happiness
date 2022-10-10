@@ -1,30 +1,44 @@
 import org.hamcrest.Matchers;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import users.UsersClient;
 
+import java.util.UUID;
+
 public class CreateUserTests {
+
+    private UsersClient usersClient;
+
+    @BeforeClass
+    public void beforeClass(){
+        usersClient = new UsersClient();
+    }
 
     @Test(groups = "api",description = "Should create Male user")
     public void shouldCreateMaleUser(){
 
         // 1. Arrange
-        String body = "{\n" +
-                "    \"name\": \"Tenali Ramakrishna13\",\n" +
+
+        String email = String.format("%s@gmail.com", UUID.randomUUID());
+
+        String body = String.format("{\n" +
+                "    \"name\": \"Tenali Ramakrishna\",\n" +
                 "    \"gender\": \"male\",\n" +
-                "    \"email\": \"tenali.ramakrishna13@gmail.com\",\n" +
+                "    \"email\": \"%s\",\n" +
                 "    \"status\": \"active\"\n" +
-                "}";
+                "}",email);
 
         // 2. Act
-        new UsersClient().createUser(body)
+        usersClient
+                .createUser(body)
                 .then()
                 .log().body()
 
         // 3. Assert
                 .statusCode(201)
                 .body("id", Matchers.notNullValue())
-                .body("email",Matchers.equalTo("tenali.ramakrishna13@gmail.com"))
-                .body("name",Matchers.equalTo("Tenali Ramakrishna13"));
+                .body("email",Matchers.equalTo(email))
+                .body("name",Matchers.equalTo("Tenali Ramakrishna"));
 
 
     }
@@ -33,23 +47,26 @@ public class CreateUserTests {
     public void shouldCreateFemaleUser(){
 
         // 1. Arrange
-        String body = "{\n" +
-                "    \"name\": \"Sharada Devi13\",\n" +
+        String email = String.format("%s@gmail.com", UUID.randomUUID());
+
+        String body = String.format("{\n" +
+                "    \"name\": \"Sharada Devi\",\n" +
                 "    \"gender\": \"female\",\n" +
-                "    \"email\": \"sharada.devi13@gmail.com\",\n" +
+                "    \"email\": \"%s\",\n" +
                 "    \"status\": \"active\"\n" +
-                "}";
+                "}",email);
 
         // 2. Act
-        new UsersClient().createUser(body)
+        usersClient
+                .createUser(body)
                 .then()
                 .log().body()
 
         // 3.. Assert
                 .statusCode(201)
                 .body("id", Matchers.notNullValue())
-                .body("email",Matchers.equalTo("sharada.devi13@gmail.com"))
-                .body("name",Matchers.equalTo("Sharada Devi13"));
+                .body("email",Matchers.equalTo(email))
+                .body("name",Matchers.equalTo("Sharada Devi"));
 
 
     }
