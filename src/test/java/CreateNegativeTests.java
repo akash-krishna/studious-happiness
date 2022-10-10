@@ -15,12 +15,13 @@ public class CreateNegativeTests {
     public void shouldNotCreateForInvalidEmailFormat(){
 
         // 1. Arrange
-        String name = "Tenali Ramakrishna11";
-        String gender = "male";
-        String email = "tenali.ramakrishna11gmail.com";
-        String status = "active";
 
-        CreateUserRequestBody requestBody = new CreateUserRequestBody(name, gender, email, status);
+        CreateUserRequestBody requestBody = CreateUserRequestBody.builder()
+                .name("Tenali Ramakrishna11")
+                .gender("male")
+                .email("tenali.ramakrishna11gmail.com")
+                .status("active")
+                .build();
 
         // 2. Act
         usersClient.createUser(requestBody)

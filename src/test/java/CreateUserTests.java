@@ -22,12 +22,12 @@ public class CreateUserTests {
 
         String email = String.format("%s@gmail.com", UUID.randomUUID());
 
-        String name = "Tenali Ramakrishna";
-        String gender = "male";
-        String status = "active";
-
-        CreateUserRequestBody requestBody = new CreateUserRequestBody(name, gender, email, status);
-
+        CreateUserRequestBody requestBody = CreateUserRequestBody.builder()
+                .name("Tenali Ramakrishna")
+                .gender("male")
+                .email(email)
+                .status("active")
+                .build();
         // 2. Act
         usersClient
                 .createUser(requestBody)
@@ -49,11 +49,12 @@ public class CreateUserTests {
         // 1. Arrange
         String email = String.format("%s@gmail.com", UUID.randomUUID());
 
-        String name = "Sharada Devi";
-        String gender = "female";
-        String status = "active";
-
-        CreateUserRequestBody requestBody = new CreateUserRequestBody(name, gender, email, status);
+        CreateUserRequestBody requestBody = CreateUserRequestBody.builder()
+                .name("Sharada Devi")
+                .gender("female")
+                .email(email)
+                .status("active")
+                .build();
 
         // 2. Act
         usersClient
